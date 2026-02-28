@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#121212">
 
-    <!-- Scrollable Content -->
-    <ScrollView
+    <!-- ═══════════════ SCROLLABLE CONTENT ═══════════════ -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsvContent"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:paddingBottom="90dp"
         android:scrollbars="none"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -23,7 +25,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Top Header Section -->
+            <!-- ── HEADER ── -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,28 +37,30 @@
 
                 <!-- Profile Image with Red Border -->
                 <androidx.cardview.widget.CardView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
                     app:cardBackgroundColor="#d02525"
-                    app:cardCornerRadius="24dp"
+                    app:cardCornerRadius="26dp"
                     app:cardElevation="0dp">
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
+                        android:layout_width="46dp"
+                        android:layout_height="46dp"
                         android:layout_gravity="center"
-                        app:cardCornerRadius="22dp"
+                        app:cardCornerRadius="23dp"
                         app:cardElevation="0dp">
 
                         <ImageView
+                            android:id="@+id/ivAvatar"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
+                            android:contentDescription="@null"
                             tools:src="@tools:sample/avatars" />
                     </androidx.cardview.widget.CardView>
                 </androidx.cardview.widget.CardView>
 
-                <!-- Welcome Text -->
+                <!-- Greeting Text -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -64,6 +68,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvGreeting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Hola, Omar 👋"
@@ -81,7 +86,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Category Section -->
+            <!-- ── CATEGORY LABEL ── -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -93,7 +98,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <!-- Categories Horizontal Scroll -->
+            <!-- ── CATEGORY CHIPS ── -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -108,6 +113,7 @@
 
                     <!-- Seafood (Active) -->
                     <TextView
+                        android:id="@+id/chipSeafood"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:background="@drawable/bg_category_active"
@@ -120,6 +126,7 @@
 
                     <!-- Beef (Inactive) -->
                     <TextView
+                        android:id="@+id/chipBeef"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_marginStart="12dp"
@@ -133,6 +140,7 @@
 
                     <!-- Vegan (Inactive) -->
                     <TextView
+                        android:id="@+id/chipVegan"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_marginStart="12dp"
@@ -144,325 +152,38 @@
                         android:textSize="14sp"
                         android:textStyle="bold" />
                 </LinearLayout>
-
             </HorizontalScrollView>
 
-            <!-- Recipe Feed Section -->
-            <LinearLayout
+            <!-- ── RECIPE FEED (RecyclerView) ── -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvRecipes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="24dp">
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="24dp"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                tools:listitem="@layout/item_recipe" />
 
-                <!-- Recipe Card 1 -->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    app:cardBackgroundColor="#1A1A1A"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/recipeImage1"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:scaleType="centerCrop"
-                            app:layout_constraintDimensionRatio="16:10"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:src="@tools:sample/backgrounds/scenic" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginEnd="16dp"
-                            android:background="@drawable/bg_rating"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="4dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <ImageView
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"
-                                android:src="@android:drawable/star_on" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:text="4.8"
-                                android:textColor="#FFFFFF"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="16dp"
-                            app:layout_constraintTop_toBottomOf="@id/recipeImage1">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Ensalada Verde de Aguacate"
-                                android:textColor="#FFFFFF"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:drawablePadding="4dp"
-                                    android:text="15 min"
-                                    android:textColor="#9CA3AF"
-                                    android:textSize="12sp"
-                                    app:drawableStartCompat="@android:drawable/ic_menu_recent_history"
-                                    app:drawableTint="#9CA3AF" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="16dp"
-                                    android:drawablePadding="4dp"
-                                    android:text="240 kcal"
-                                    android:textColor="#9CA3AF"
-                                    android:textSize="12sp"
-                                    app:drawableStartCompat="@android:drawable/ic_menu_whatshot"
-                                    app:drawableTint="#9CA3AF" />
-                            </LinearLayout>
-                        </LinearLayout>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
-
-                <!-- Recipe Card 2 -->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    app:cardBackgroundColor="#1A1A1A"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/recipeImage2"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:scaleType="centerCrop"
-                            app:layout_constraintDimensionRatio="16:10"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:src="@tools:sample/backgrounds/scenic" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginEnd="16dp"
-                            android:background="@drawable/bg_rating"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="4dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <ImageView
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"
-                                android:src="@android:drawable/star_on" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:text="4.9"
-                                android:textColor="#FFFFFF"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="16dp"
-                            app:layout_constraintTop_toBottomOf="@id/recipeImage2">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Bol de Proteína a la Parrilla"
-                                android:textColor="#FFFFFF"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:drawablePadding="4dp"
-                                    android:text="25 min"
-                                    android:textColor="#9CA3AF"
-                                    android:textSize="12sp"
-                                    app:drawableStartCompat="@android:drawable/ic_menu_recent_history"
-                                    app:drawableTint="#9CA3AF" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="16dp"
-                                    android:drawablePadding="4dp"
-                                    android:text="410 kcal"
-                                    android:textColor="#9CA3AF"
-                                    android:textSize="12sp"
-                                    app:drawableStartCompat="@android:drawable/ic_menu_whatshot"
-                                    app:drawableTint="#9CA3AF" />
-                            </LinearLayout>
-                        </LinearLayout>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
-
-                <!-- Recipe Card 3 -->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardBackgroundColor="#1A1A1A"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/recipeImage3"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:scaleType="centerCrop"
-                            app:layout_constraintDimensionRatio="16:10"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:src="@tools:sample/backgrounds/scenic" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginEnd="16dp"
-                            android:background="@drawable/bg_rating"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="4dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <ImageView
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"
-                                android:src="@android:drawable/star_on" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:text="4.7"
-                                android:textColor="#FFFFFF"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="16dp"
-                            app:layout_constraintTop_toBottomOf="@id/recipeImage3">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Batido de Frutos Rojos"
-                                android:textColor="#FFFFFF"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:drawablePadding="4dp"
-                                    android:text="10 min"
-                                    android:textColor="#9CA3AF"
-                                    android:textSize="12sp"
-                                    app:drawableStartCompat="@android:drawable/ic_menu_recent_history"
-                                    app:drawableTint="#9CA3AF" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="16dp"
-                                    android:drawablePadding="4dp"
-                                    android:text="180 kcal"
-                                    android:textColor="#9CA3AF"
-                                    android:textSize="12sp"
-                                    app:drawableStartCompat="@android:drawable/ic_menu_whatshot"
-                                    app:drawableTint="#9CA3AF" />
-                            </LinearLayout>
-                        </LinearLayout>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-    <!-- Bottom Navigation Bar -->
+    <!-- ═══════════════ BOTTOM NAVIGATION ═══════════════ -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/bottomNav"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#F2121212"
         android:orientation="horizontal"
         android:paddingTop="16dp"
         android:paddingBottom="32dp"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <!-- Inicio -->
+        <!-- INICIO (active) -->
         <LinearLayout
+            android:id="@+id/navHome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -472,7 +193,8 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_sort_by_size"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_home"
                 app:tint="#d02525" />
 
             <TextView
@@ -485,8 +207,9 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Perfil -->
+        <!-- PERFIL (inactive) -->
         <LinearLayout
+            android:id="@+id/navProfile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -496,7 +219,8 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_myplaces"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_person"
                 app:tint="#6B7280" />
 
             <TextView
