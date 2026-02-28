@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_dark">
@@ -13,6 +14,7 @@
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:paddingBottom="96dp"
+        android:scrollbars="none"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/ll_bottom_nav"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +37,6 @@
                 android:paddingTop="36dp"
                 android:paddingBottom="16dp">
 
-                <!-- Avatar (circular clip via ShapeableImageView) -->
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_avatar"
                     android:layout_width="48dp"
@@ -46,7 +47,6 @@
                     app:strokeColor="@color/primary"
                     app:strokeWidth="2dp"/>
 
-                <!-- Greeting text -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -70,69 +70,9 @@
                         android:textColor="@color/text_secondary"
                         android:textSize="13sp"/>
                 </LinearLayout>
-
-                <!-- Notification button -->
-                <FrameLayout
-                    android:id="@+id/btn_notifications"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/bg_notification_btn"
-                    android:foreground="?attr/selectableItemBackgroundBorderless">
-                    <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_notifications"
-                        android:contentDescription="@null"/>
-                </FrameLayout>
             </LinearLayout>
 
-            <!-- ── SEARCH BAR ── -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginHorizontal="24dp"
-                android:background="@drawable/bg_search_bar"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_search"
-                    android:contentDescription="@null"/>
-
-                <EditText
-                    android:id="@+id/et_search"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_marginStart="10dp"
-                    android:background="@null"
-                    android:hint="@string/home_search_hint"
-                    android:textColorHint="@color/text_hint"
-                    android:textColor="@color/text_primary"
-                    android:textSize="14sp"
-                    android:inputType="text"
-                    android:singleLine="true"
-                    android:imeOptions="actionSearch"/>
-            </LinearLayout>
-
-            <!-- ── CATEGORY SECTION ── -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/home_recipes_title"
-                android:textColor="@color/text_primary"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="12dp"/>
-
-            <!-- Horizontal chip scroll -->
+            <!-- ── CATEGORY CHIPS ── -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -147,7 +87,6 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
 
-                    <!-- Chip: Todas (active) -->
                     <LinearLayout
                         android:id="@+id/chip_all"
                         android:layout_width="wrap_content"
@@ -158,67 +97,261 @@
                         android:paddingEnd="16dp"
                         android:background="@drawable/bg_chip_active"
                         android:layout_marginEnd="10dp">
-                        <ImageView android:layout_width="14dp" android:layout_height="14dp"
-                            android:src="@drawable/ic_check_circle" android:contentDescription="@null"/>
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="  Todas" android:textColor="@color/white"
+                            android:text="Seafood" android:textColor="@color/white"
                             android:textSize="13sp" android:textStyle="bold"/>
                     </LinearLayout>
 
-                    <!-- Chip: Populares -->
                     <LinearLayout android:id="@+id/chip_popular"
                         android:layout_width="wrap_content" android:layout_height="40dp"
                         android:orientation="horizontal" android:gravity="center_vertical"
                         android:paddingStart="16dp" android:paddingEnd="16dp"
                         android:background="@drawable/bg_chip_inactive"
                         android:layout_marginEnd="10dp">
-                        <ImageView android:layout_width="14dp" android:layout_height="14dp"
-                            android:src="@drawable/ic_fire" android:contentDescription="@null"/>
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="  Populares" android:textColor="@color/text_secondary"
+                            android:text="Beef" android:textColor="@color/text_secondary"
                             android:textSize="13sp" android:textStyle="bold"/>
                     </LinearLayout>
 
-                    <!-- Chip: Nuevas -->
                     <LinearLayout android:id="@+id/chip_new"
                         android:layout_width="wrap_content" android:layout_height="40dp"
                         android:orientation="horizontal" android:gravity="center_vertical"
                         android:paddingStart="16dp" android:paddingEnd="16dp"
-                        android:background="@drawable/bg_chip_inactive"
-                        android:layout_marginEnd="10dp">
-                        <ImageView android:layout_width="14dp" android:layout_height="14dp"
-                            android:src="@drawable/ic_star_filled" android:contentDescription="@null"/>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="  Nuevas" android:textColor="@color/text_secondary"
-                            android:textSize="13sp" android:textStyle="bold"/>
-                    </LinearLayout>
-
-                    <!-- Chip: Saludable -->
-                    <LinearLayout android:id="@+id/chip_healthy"
-                        android:layout_width="wrap_content" android:layout_height="40dp"
-                        android:orientation="horizontal" android:gravity="center_vertical"
-                        android:paddingStart="16dp" android:paddingEnd="16dp"
                         android:background="@drawable/bg_chip_inactive">
-                        <ImageView android:layout_width="14dp" android:layout_height="14dp"
-                            android:src="@drawable/ic_eco" android:contentDescription="@null"/>
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="  Saludable" android:textColor="@color/text_secondary"
+                            android:text="Vegan" android:textColor="@color/text_secondary"
                             android:textSize="13sp" android:textStyle="bold"/>
                     </LinearLayout>
-
                 </LinearLayout>
             </HorizontalScrollView>
 
-            <!-- ── RECIPE FEED ── -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_recipes"
+            <!-- ── RECIPE CARDS ── -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="20dp"
-                android:nestedScrollingEnabled="false"
-                android:overScrollMode="never"/>
+                android:orientation="vertical"
+                android:paddingHorizontal="24dp"
+                android:paddingTop="20dp">
 
+                <!-- ═══ CARD 1: Ensalada Verde de Aguacate ═══ -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    app:cardBackgroundColor="@color/card_bg"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/iv_image1"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="@null"
+                            app:layout_constraintDimensionRatio="16:10"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:src="@tools:sample/backgrounds/scenic" />
+
+                        <!-- Rating badge -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:background="@drawable/bg_rating_badge"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="5dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+                            <ImageView android:layout_width="13dp" android:layout_height="13dp"
+                                android:src="@drawable/ic_star_filled" android:contentDescription="@null"
+                                app:tint="#FACC15"/>
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp" android:text="4.8"
+                                android:textColor="@color/text_primary" android:textSize="12sp" android:textStyle="bold"/>
+                        </LinearLayout>
+
+                        <!-- Info -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp"
+                            app:layout_constraintTop_toBottomOf="@id/iv_image1">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="Ensalada Verde de Aguacate"
+                                android:textColor="@color/text_primary" android:textSize="17sp" android:textStyle="bold"/>
+                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp" android:gravity="center_vertical" android:orientation="horizontal">
+                                <ImageView android:layout_width="14dp" android:layout_height="14dp"
+                                    android:src="@drawable/ic_schedule" android:contentDescription="@null" app:tint="@color/text_secondary"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp" android:text="15 min"
+                                    android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                                <ImageView android:layout_width="14dp" android:layout_height="14dp"
+                                    android:layout_marginStart="16dp" android:src="@drawable/ic_fire"
+                                    android:contentDescription="@null" app:tint="@color/text_secondary"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp" android:text="240 kcal"
+                                    android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- ═══ CARD 2: Bol de Proteína a la Parrilla ═══ -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    app:cardBackgroundColor="@color/card_bg"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/iv_image2"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="@null"
+                            app:layout_constraintDimensionRatio="16:10"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:src="@tools:sample/backgrounds/scenic" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:background="@drawable/bg_rating_badge"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="5dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+                            <ImageView android:layout_width="13dp" android:layout_height="13dp"
+                                android:src="@drawable/ic_star_filled" android:contentDescription="@null"
+                                app:tint="#FACC15"/>
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp" android:text="4.9"
+                                android:textColor="@color/text_primary" android:textSize="12sp" android:textStyle="bold"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp"
+                            app:layout_constraintTop_toBottomOf="@id/iv_image2">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="Bol de Proteína a la Parrilla"
+                                android:textColor="@color/text_primary" android:textSize="17sp" android:textStyle="bold"/>
+                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp" android:gravity="center_vertical" android:orientation="horizontal">
+                                <ImageView android:layout_width="14dp" android:layout_height="14dp"
+                                    android:src="@drawable/ic_schedule" android:contentDescription="@null" app:tint="@color/text_secondary"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp" android:text="25 min"
+                                    android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                                <ImageView android:layout_width="14dp" android:layout_height="14dp"
+                                    android:layout_marginStart="16dp" android:src="@drawable/ic_fire"
+                                    android:contentDescription="@null" app:tint="@color/text_secondary"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp" android:text="410 kcal"
+                                    android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- ═══ CARD 3: Batido de Frutos Rojos ═══ -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    app:cardBackgroundColor="@color/card_bg"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/iv_image3"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="@null"
+                            app:layout_constraintDimensionRatio="16:10"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:src="@tools:sample/backgrounds/scenic" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:background="@drawable/bg_rating_badge"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="5dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+                            <ImageView android:layout_width="13dp" android:layout_height="13dp"
+                                android:src="@drawable/ic_star_filled" android:contentDescription="@null"
+                                app:tint="#FACC15"/>
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp" android:text="4.7"
+                                android:textColor="@color/text_primary" android:textSize="12sp" android:textStyle="bold"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp"
+                            app:layout_constraintTop_toBottomOf="@id/iv_image3">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="Batido de Frutos Rojos"
+                                android:textColor="@color/text_primary" android:textSize="17sp" android:textStyle="bold"/>
+                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp" android:gravity="center_vertical" android:orientation="horizontal">
+                                <ImageView android:layout_width="14dp" android:layout_height="14dp"
+                                    android:src="@drawable/ic_schedule" android:contentDescription="@null" app:tint="@color/text_secondary"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp" android:text="10 min"
+                                    android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                                <ImageView android:layout_width="14dp" android:layout_height="14dp"
+                                    android:layout_marginStart="16dp" android:src="@drawable/ic_fire"
+                                    android:contentDescription="@null" app:tint="@color/text_secondary"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp" android:text="180 kcal"
+                                    android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -251,36 +384,6 @@
                 android:letterSpacing="0.08" android:layout_marginTop="2dp"/>
         </LinearLayout>
 
-        <!-- Explorar -->
-        <LinearLayout android:id="@+id/nav_explore"
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            android:layout_weight="1" android:orientation="vertical"
-            android:gravity="center">
-            <ImageView android:layout_width="24dp" android:layout_height="24dp"
-                android:src="@drawable/ic_search_nav" android:contentDescription="@null"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="EXPLORAR" android:textColor="@color/text_hint"
-                android:textSize="9sp" android:textStyle="bold"
-                android:letterSpacing="0.08" android:layout_marginTop="2dp"/>
-        </LinearLayout>
-
-        <!-- FAB placeholder space -->
-        <FrameLayout android:layout_width="0dp" android:layout_height="56dp"
-            android:layout_weight="1"/>
-
-        <!-- Guardados -->
-        <LinearLayout android:id="@+id/nav_saved"
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            android:layout_weight="1" android:orientation="vertical"
-            android:gravity="center">
-            <ImageView android:layout_width="24dp" android:layout_height="24dp"
-                android:src="@drawable/ic_favorite" android:contentDescription="@null"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="GUARDADOS" android:textColor="@color/text_hint"
-                android:textSize="9sp" android:textStyle="bold"
-                android:letterSpacing="0.08" android:layout_marginTop="2dp"/>
-        </LinearLayout>
-
         <!-- Perfil -->
         <LinearLayout android:id="@+id/nav_profile"
             android:layout_width="0dp" android:layout_height="wrap_content"
@@ -295,21 +398,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <!-- FAB (elevated above bottom nav) -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_add"
-        app:backgroundTint="@color/primary"
-        app:tint="@color/white"
-        app:elevation="8dp"
-        app:fabSize="normal"
-        app:layout_constraintBottom_toTopOf="@id/ll_bottom_nav"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="-28dp"
-        android:contentDescription="@string/cd_fab_add"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

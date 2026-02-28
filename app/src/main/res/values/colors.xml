@@ -10,6 +10,7 @@
     <color name="background_login">#120909</color>
     <color name="background_register">#201212</color>
     <color name="input_bg">#1A0D0D</color>
+    <color name="card_bg">#1A1A1A</color>
 
     <!-- Text -->
     <color name="text_primary">#F1F5F9</color>
